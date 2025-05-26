@@ -45,7 +45,7 @@ finvest-website/
 
 1. Clone the repository
    ```bash
-   git clone https://github.com/northstart-0310/Sridhish-Finvest-Pvt.Ltd..git
+   git clone https://github.com/northstar-0310/Sridhish-Finvest-Pvt.-Ltd.
    cd finvest-website
    ```
 
