@@ -66,7 +66,7 @@ export default function ContactPage() {
       const templateParams = {
         from_name: name,
         from_email: email,
-        to_email: 'sridhifinpltd@gmail.com',
+        to_email: 'sridhishfinpltd@gmail.com',
         message: message,
         service: service || 'General Inquiry',
         reply_to: email
@@ -88,7 +88,7 @@ export default function ContactPage() {
       console.error("Error submitting inquiry:", error)
       toast({
         title: "Error",
-        description: "Failed to send inquiry. Please try again later or contact us directly at sridhifinpltd@gmail.com",
+        description: "Failed to send inquiry. Please try again later or contact us directly at sridhishfinpltd@gmail.com",
         variant: "destructive",
       })
     } finally {
@@ -141,7 +141,7 @@ export default function ContactPage() {
                     </div>
                     <div className="flex items-center space-x-3">
                       <Mail className="text-primary" />
-                      <p className="text-sm sm:text-base">sridhifinpltd@gmail.com</p>
+                      <p className="text-sm sm:text-base">sridhishfinpltd@gmail.com</p>
                     </div>
                     <div className="flex items-start space-x-3">
                       <MapPin className="text-primary mt-1" />

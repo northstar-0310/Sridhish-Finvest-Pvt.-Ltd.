@@ -79,8 +79,8 @@ export function Footer() {
               </div>
               <div className="flex items-start">
                 <Mail className="h-4 w-4 mt-0.5 text-primary mr-3 flex-shrink-0" />
-                <a href="mailto:sridhifinpltd@gmail.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  sridhifinpltd@gmail.com
+                <a href="mailto:sridhishfinpltd@gmail.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  sridhishfinpltd@gmail.com
                 </a>
               </div>
               <div className="flex items-start">
