@@ -45,7 +45,7 @@ finvest-website/
 
 1. Clone the repository
    ```bash
-   git clone https://github.com/your-username/finvest-website.git
+   git clone https://github.com/northstar-0310/finvest-website.git
    cd finvest-website
    ```
 
