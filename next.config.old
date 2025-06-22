@@ -1,0 +1,50 @@
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: 'export',
+  images: {
+    unoptimized: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  // Disable the static export sitemap generation
+  exclude: ['sitemap.xml'],
+}
+
+// Remove headers function for static export
+const withHeaders = (nextConfig) => {
+  return {
+    ...nextConfig,
+    async headers() {
+      return [
+        {
+          source: '/(.*)',
+          headers: [
+            {
+              key: 'X-Content-Type-Options',
+              value: 'nosniff',
+            },
+            {
+              key: 'X-Frame-Options',
+              value: 'DENY',
+            },
+            {
+              key: 'X-XSS-Protection',
+              value: '1; mode=block',
+            },
+          ],
+        },
+      ]
+    },
+  }
+}
+
+// Only add headers if not exporting
+if (process.env.NODE_ENV !== 'export') {
+  module.exports = withHeaders(nextConfig)
+} else {
+  module.exports = nextConfig
+}

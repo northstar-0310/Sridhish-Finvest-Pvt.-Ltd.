@@ -7,7 +7,22 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Sridhish Finvest Pvt. Ltd.',
   description: 'Your trusted partner in financial planning and investments',
-    generator: 'v0.dev'
+  metadataBase: new URL('https://sridhishfinvest.com'),
+  keywords: ['financial planning', 'mutual funds', 'investment', 'insurance', 'Sridhish Finvest'],
+  authors: [{ name: 'Sridhish Finvest' }],
+  creator: 'Sridhish Finvest',
+  publisher: 'Sridhish Finvest Pvt. Ltd.',
+  openGraph: {
+    title: 'Sridhish Finvest Pvt. Ltd.',
+    description: 'Your trusted partner in financial planning and investments',
+    url: 'https://sridhishfinvest.com',
+    siteName: 'Sridhish Finvest',
+    type: 'website',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export default function RootLayout({

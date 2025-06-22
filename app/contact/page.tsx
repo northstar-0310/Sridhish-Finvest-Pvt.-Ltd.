@@ -9,9 +9,10 @@ import { Textarea } from "@/components/ui/textarea"
 import { toast } from "@/components/ui/use-toast"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { motion } from "framer-motion"
-import { Phone, Mail, MapPin } from "lucide-react"
+import { Phone, Mail, MapPin, Loader2 } from "lucide-react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
+import emailjs from '@emailjs/browser'
 
 export default function ContactPage() {
   const [name, setName] = useState("")
@@ -33,35 +34,61 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    if (!name || !email || !message) {
+      toast({
+        title: "Error",
+        description: "Please fill in all required fields.",
+        variant: "destructive",
+      })
+      return
+    }
+    
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      toast({
+        title: "Error",
+        description: "Please enter a valid email address.",
+        variant: "destructive",
+      })
+      return
+    }
+    
     setIsSubmitting(true)
 
     try {
-      const response = await fetch("/api/inquiries", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, email, message, service }),
-      })
+      // Replace these with your actual EmailJS service ID, template ID, and public key
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'your_service_id';
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'your_template_id';
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || 'your_public_key';
+      
+      const templateParams = {
+        from_name: name,
+        from_email: email,
+        to_email: 'sridhifinpltd@gmail.com',
+        message: message,
+        service: service || 'General Inquiry',
+        reply_to: email
+      };
 
-      if (response.ok) {
-        await response.json()
-        toast({
-          title: "Inquiry Sent",
-          description: "Thank you for your inquiry. We'll get back to you soon!",
-        })
-        setName("")
-        setEmail("")
-        setMessage("")
-        setService("")
-      } else {
-        const errorData = await response.json()
-        throw new Error(errorData.message || "Failed to send inquiry")
-      }
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      
+      toast({
+        title: "Inquiry Sent",
+        description: "Thank you for your inquiry. We'll get back to you soon!",
+      });
+      
+      // Reset form
+      setName("");
+      setEmail("");
+      setMessage("");
+      setService("");
     } catch (error) {
+      console.error("Error submitting inquiry:", error)
       toast({
         title: "Error",
-        description: error instanceof Error ? error.message : "Failed to send inquiry. Please try again later.",
+        description: "Failed to send inquiry. Please try again later or contact us directly at sridhifinpltd@gmail.com",
         variant: "destructive",
       })
     } finally {
@@ -182,12 +209,15 @@ export default function ContactPage() {
                         className="w-full p-2 bg-background border border-input rounded-md focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
                       />
                     </div>
-                    <Button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-300"
-                    >
-                      {isSubmitting ? "Sending..." : "Send Inquiry"}
+                    <Button type="submit" className="w-full" disabled={isSubmitting}>
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Sending...
+                        </>
+                      ) : (
+                        "Send Message"
+                      )}
                     </Button>
                   </form>
                 </CardContent>

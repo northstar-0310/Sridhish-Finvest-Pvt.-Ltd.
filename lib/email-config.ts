@@ -24,8 +24,8 @@ const emailConfig: EmailConfig = {
     user: process.env.EMAIL_USER || 'your-email@gmail.com',
     pass: process.env.EMAIL_PASSWORD || 'your-app-password', // Use App Password for Gmail
   },
-  from: `"Sridhish Finvest" <${process.env.EMAIL_FROM || 'noreply@sridhishfinvest.com'}>`,
-  to: process.env.EMAIL_TO || 'sridhifinpltd@gmail.com',
+  from: `"Sridhish Finvest" <sridhishfinpltd@gmail.com>`,
+  to: 'sridhishfinpltd@gmail.com',
 };
 
 export default emailConfig;
